@@ -9,6 +9,7 @@
 #include <vector>
 #include <iterator>
 #include <fstream>
+#include <memory>
 #include "CProcessorFactory.h"
 #include "CFileHandler.h"
 
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		CProcessorFactory factory;
-		IProcessor *processor = factory.createProcessor(argv[1]);
+		std::unique_ptr<IProcessor> processor = factory.createProcessor(argv[1]);
 		if (nullptr != processor)
 		{
 			std::string text = "";
@@ -43,7 +44,6 @@ int main(int argc, char *argv[])
 		{
 			std::cerr << "Invalid argument was entered.\nMust be entered \"A\",\"B\" or \"C\"" << std::endl;
 		}
-		delete processor;
 	}
 	return 0;
 }

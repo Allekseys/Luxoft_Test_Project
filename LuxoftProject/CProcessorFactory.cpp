@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <iterator>
 #include <fstream>
+#include <memory>
 #include "CProcessorFactory.h"
 #include "CProcessorA.h"
 #include "CProcessorB.h"
@@ -16,16 +17,16 @@ CProcessorFactory::~CProcessorFactory()
 
 }
 
-IProcessor *CProcessorFactory::createProcessor(const char * param)
+std::unique_ptr<IProcessor> CProcessorFactory::createProcessor(const char * param)
 {
 	switch (*param)
 	{
 	case 'A':
-		return new CProcessorA();
+		return std::unique_ptr<IProcessor>(new CProcessorA());
 	case 'B':
-		return new CProcessorB();
+		return std::unique_ptr<IProcessor>(new CProcessorB());
 	case 'C':
-		return new CProcessorC();
+		return std::unique_ptr<IProcessor>(new CProcessorC());
 	default:
 		return nullptr;
 	}

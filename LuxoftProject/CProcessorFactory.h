@@ -11,5 +11,5 @@ public:
 	/*
 	* Creates a needed processor for the given param
 	*/
-	IProcessor *createProcessor (const char * param);
+	std::unique_ptr<IProcessor> createProcessor(const char * param);
 }; 
